@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRGAN Super-Resolution</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 animated-title">Upload Image for Super-Resolution</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group custom-file-upload">
+                            <label for="imageInput">选择文件</label>
+                            <input type="file" class="form-control-file" id="imageInput" name="file">
+                        </div>
+                        <div class="form-group">
+                            <label for="scaleSelect">Choose Scale</label>
+                            <select class="form-control" id="scaleSelect" name="scale">
+                                <option value="2">2x</option>
+                                <option value="4">4x</option>
+                                <option value="8">8x</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-upload"></i> Submit</button>
+                        <div id="loadingIndicator" class="text-center my-3">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <div>Processing...</div>
+                        </div>
+                    </form>
+                </div>
+                <hr class="mt-5">
+                <h4 class="text-center mb-4 animated-title">Processed Image</h4>
+                <div class="image-container mb-3">
+                    <img id="outputImage" class="img-fluid" src="#" alt="Processed Image" style="display:none;">
+                </div>
+                <a id="downloadButton" href="#" download class="btn btn-success btn-block" style="display:none;"><i class="fas fa-download"></i> Download</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#loadingIndicator").hide();
+         $("#uploadForm").on('submit', function (e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: "/upload",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "json",  // 期望从服务器接收 JSON 格式的响应
+            success: function (response) {
+                if (response.url && response.filename) {
+                    $("#outputImage").attr("src", response.url).show();
+                    $("#downloadButton").attr({
+                        "href": response.url,
+                        "download": response.filename
+                    }).show();
+                } else if (response.error) {
+                    alert(response.error);  // 或其他错误处理方式
+                }
+            }
+        });
+    });
+        // 在Ajax请求开始时显示加载指示器
+        $(document).ajaxStart(function () {
+            $("#loadingIndicator").show();
+        });
+        // 当Ajax请求完成时隐藏加载指示器
+        $(document).ajaxStop(function () {
+            $("#loadingIndicator").hide();
+        });
+     anime({
+            targets: '.animated-title',
+            opacity: 1,
+            delay: 500,
+            duration: 1000,
+            easing: 'easeOutExpo',
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #f6c7c7);
+    color: #2c3e50;
+}
+
+.card {
+    border-radius: 15px;  /* 更圆润的边角 */
+    background: white;  /* 白色背景 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);  /* 更大的阴影效果 */
+    transition: box-shadow 0.3s, transform 0.3s;
+    transform: scale(0.98);
+    padding: 30px;  /* 更多的内边距 */
+}
+
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);  /* 悬停时的阴影效果 */
+    transform: scale(1);
+}
+
+.btn-primary {
+    background: #3498db;
+    color: #ecf0f1;
+    border-radius: 25px;  /* 圆润的边角 */
+    font-weight: 600;  /* 更粗的字体 */
+}
+
+.btn-success {
+    background: #2ecc71;
+    color: #ecf0f1;
+    border-radius: 25px;  /* 圆润的边角 */
+    font-weight: 600;  /* 更粗的字体 */
+}
+
+.image-container img {
+    border-radius: 15px;  /* 图片的圆润边角 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* 图片的阴影效果 */
+}
+
+h2, h4 {
+    font-weight: 600;  /* 更粗的字体 */
+    opacity: 1;  /* 不透明 */
+}
+
+/* 新增：添加了一个简单的悬停效果 */
+.btn:hover, .image-container img:hover {
+    transform: translateY(-5px);
+}
+
+/* 新增：保证了足够的空间和对齐 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* 新增：清晰、锐利的图像展示 */
+#outputImage {
+    border: none;
+    max-width: 100%;
+    height: auto;
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* 设置容器宽度为100% */
+    margin: auto;  /* 自动边距以确保居中 */
+}
+
+#outputImage {
+    border: none;
+    max-width: 100%;
+    height: auto;
+    display: block;  /* 确保图像作为块元素显示 */
+    margin: auto;  /* 自动边距以确保图像居中 */
+}
+    .custom-file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload label {
+    display: block;
+    padding: 7px;
+    background: #3498db;
+    color: #ecf0f1;
+    border-radius: 25px;  /* 圆润的边角 */
+    font-weight: 600;  /* 更粗的字体 */
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.custom-file-upload label:hover {
+    background-color: #2980b9;
+}
