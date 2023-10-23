@@ -53,11 +53,7 @@ h2, h4 {
 }
 
 /* 新增：清晰、锐利的图像展示 */
-#outputImage {
-    border: none;
-    max-width: 100%;
-    height: auto;
-}
+
 .image-container {
     display: flex;
     justify-content: center;
@@ -73,7 +69,7 @@ h2, h4 {
     display: block;  /* 确保图像作为块元素显示 */
     margin: auto;  /* 自动边距以确保图像居中 */
 }
-    .custom-file-upload {
+.custom-file-upload {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -98,4 +94,22 @@ h2, h4 {
 
 .custom-file-upload label:hover {
     background-color: #2980b9;
+}
+.image-preview{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;  /* 设置容器宽度为100% */
+    margin: auto;  /* 自动边距以确保居中 */
+
+}
+#uploadedImage{
+    border: none;
+    max-width: 100%;
+    height: auto;
+    display: block;  /* 确保图像作为块元素显示 */
+    margin: auto;  /* 自动边距以确保图像居中 */
+    border-radius: 15px;  /* 图片的圆润边角 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* 图片的阴影效果 */
 }

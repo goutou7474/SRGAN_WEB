@@ -42,7 +42,12 @@ def upload_file():
 
         # 使用唯一文件名保存处理后的图片
         output_path = os.path.join(app.config['OUTPUT_FOLDER'], 'processed_' + unique_filename)
-        apply_srgan(file_path, output_path, int(super_size))
+        try:
+            apply_srgan(file_path, output_path, int(super_size))
+        except Exception as e:
+            # 这里捕获所有异常，并返回一个简单的错误消息
+            return jsonify({'error': '图像分辨率过大或者过小，请上传分辨率在50*50到500*500之间的低分辨率图片'})
+
 
         # 返回处理后的图片文件名和URL路径
         return jsonify({'filename': 'processed_' + unique_filename, 'url': os.path.join(app.config['OUTPUT_FOLDER'], 'processed_' + unique_filename)})

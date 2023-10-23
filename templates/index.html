@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SRGAN Super-Resolution</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -21,9 +21,12 @@
                 <div class="card p-4">
                     <form id="uploadForm" enctype="multipart/form-data">
                         <div class="form-group custom-file-upload">
-                            <label for="imageInput">选择文件</label>
+                            <label for="imageInput">Upload</label>
                             <input type="file" class="form-control-file" id="imageInput" name="file">
                         </div>
+                            <div class="image-preview mb-3">
+                                <img id="uploadedImage" class="img-fluid" src="#" alt="Uploaded Image" style="display:none;">
+                            </div>
                         <div class="form-group">
                             <label for="scaleSelect">Choose Scale</label>
                             <select class="form-control" id="scaleSelect" name="scale">
@@ -73,6 +76,16 @@
             }
         });
     });
+        $("#imageInput").on("change", function() {
+            let input = this;
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    $("#uploadedImage").attr("src", e.target.result).show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
         // 在Ajax请求开始时显示加载指示器
         $(document).ajaxStart(function () {
             $("#loadingIndicator").show();
